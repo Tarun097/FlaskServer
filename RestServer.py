@@ -40,7 +40,18 @@ def get_user(id):
 @api.route('/users', methods=['POST'])
 def add_users():
     global users
-    users = json.loads(request.data)
+    data = request.get_json()
+    
+    if isinstance(data, list):
+        for user in data:
+            if find(users, "id", user["id"]) != -1:
+                return jsonify(f"User with ID {user['id']} already exists."), 400
+        users.extend(data)
+    else:
+        if find(users, "id", data["id"]) != -1:
+            return jsonify(f"User with ID {data['id']} already exists."), 400
+        users.append(data)
+    
     return jsonify(users)
 
 

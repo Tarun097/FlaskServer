@@ -19,7 +19,7 @@ api = Flask(__name__)
 
 @api.route('/')
 def index():
-    return jsonify("Mock Server 101")
+    return jsonify("Mock Server 102")
 
 
 @api.route('/users', methods=['GET'])
